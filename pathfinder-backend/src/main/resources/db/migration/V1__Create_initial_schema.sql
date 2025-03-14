@@ -1,5 +1,5 @@
 CREATE TABLE map (
-                     id SERIAL PRIMARY KEY,
+                     id BIGSERIAL PRIMARY KEY,
                      name VARCHAR(255) NOT NULL,
                      description TEXT,
                      width INTEGER NOT NULL,
@@ -17,7 +17,7 @@ CREATE TYPE terrain_type AS ENUM (
 );
 
 CREATE TABLE node (
-                      id SERIAL PRIMARY KEY,
+                      id BIGSERIAL PRIMARY KEY,
                       x INTEGER NOT NULL,
                       y INTEGER NOT NULL,
                       terrain_type terrain_type NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE node (
 );
 
 CREATE TABLE edge (
-                      id SERIAL PRIMARY KEY,
+                      id BIGSERIAL PRIMARY KEY,
                       source_id BIGINT NOT NULL,
                       target_id BIGINT NOT NULL,
                       weight DOUBLE PRECISION NOT NULL,
@@ -46,7 +46,7 @@ CREATE TYPE algorithm_type AS ENUM (
 );
 
 CREATE TABLE algorithm_result (
-                                  id SERIAL PRIMARY KEY,
+                                  id BIGSERIAL PRIMARY KEY,
                                   map_id BIGINT NOT NULL,
                                   algorithm_type algorithm_type NOT NULL,
                                   execution_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
