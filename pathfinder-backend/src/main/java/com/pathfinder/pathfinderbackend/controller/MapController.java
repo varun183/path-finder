@@ -4,6 +4,7 @@ package com.pathfinder.pathfinderbackend.controller;
 
 import com.pathfinder.pathfinderbackend.dto.CreateMapRequest;
 import com.pathfinder.pathfinderbackend.dto.GenerateMapRequest;
+import com.pathfinder.pathfinderbackend.dto.MapDetailsDto;
 import com.pathfinder.pathfinderbackend.dto.MapDto;
 import com.pathfinder.pathfinderbackend.model.Map;
 import com.pathfinder.pathfinderbackend.service.MapGeneratorService;
@@ -38,10 +39,10 @@ public class MapController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MapDto> getMapById(@PathVariable Long id) {
+    public ResponseEntity<MapDetailsDto> getMapById(@PathVariable Long id) {
         Optional<Map> mapOpt = mapService.getMapById(id);
 
-        return mapOpt.map(map -> ResponseEntity.ok(MapDto.fromEntity(map))).orElseGet(() -> ResponseEntity.notFound().build());
+        return mapOpt.map(map -> ResponseEntity.ok(MapDetailsDto.fromEntity(map))).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 
