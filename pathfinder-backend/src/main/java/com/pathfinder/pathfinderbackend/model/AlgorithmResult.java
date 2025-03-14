@@ -25,7 +25,7 @@ public class AlgorithmResult {
     private Map map;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "algorithm_type", nullable = false)
     private AlgorithmType algorithmType;
 
     @CreationTimestamp
