@@ -3,8 +3,10 @@ package com.pathfinder.pathfinderbackend.controller;
 
 
 import com.pathfinder.pathfinderbackend.dto.CreateMapRequest;
+import com.pathfinder.pathfinderbackend.dto.GenerateMapRequest;
 import com.pathfinder.pathfinderbackend.dto.MapDto;
 import com.pathfinder.pathfinderbackend.model.Map;
+import com.pathfinder.pathfinderbackend.service.MapGeneratorService;
 import com.pathfinder.pathfinderbackend.service.MapService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 public class MapController {
 
     private final MapService mapService;
+    private final MapGeneratorService mapGeneratorService;
+
 
     @GetMapping
     public ResponseEntity<List<MapDto>> getAllMaps() {
@@ -52,6 +56,21 @@ public class MapController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(MapDto.fromEntity(map));
     }
+
+    @PostMapping("/generate")
+    public ResponseEntity<MapDto> generateMap(@Valid @RequestBody GenerateMapRequest request) {
+        Map map = mapGeneratorService.generateRandomMap(
+                request.getName(),
+                request.getDescription(),
+                request.getWidth(),
+                request.getHeight(),
+                request.getObstacleDensity()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(MapDto.fromEntity(map));
+    }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMap(@PathVariable Long id) {

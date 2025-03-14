@@ -2,6 +2,7 @@ package com.pathfinder.pathfinderbackend.controller;
 
 import com.pathfinder.pathfinderbackend.dto.CreateMapRequest;
 import com.pathfinder.pathfinderbackend.model.Map;
+import com.pathfinder.pathfinderbackend.service.MapGeneratorService;
 import com.pathfinder.pathfinderbackend.service.MapService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,12 +31,16 @@ public class MapControllerTest {
     @Mock
     private MapService mapService;
 
+    @Mock
+    private  MapGeneratorService mapGeneratorService;
+
+
     private ObjectMapper objectMapper;
 
     @BeforeEach
     public void setup() {
         objectMapper = new ObjectMapper();
-        MapController mapController = new MapController(mapService);
+        MapController mapController = new MapController(mapService,mapGeneratorService);
         mockMvc = MockMvcBuilders.standaloneSetup(mapController).build();
     }
 

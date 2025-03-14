@@ -36,8 +36,10 @@ public class Map {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "map", cascade = CascadeType.ALL)
+    @Builder.Default
     private Set<Node> nodes = new HashSet<>();
 
     @OneToMany(mappedBy = "map", cascade = CascadeType.ALL)
+    @Builder.Default
     private Set<Edge> edges = new HashSet<>();
 }

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "node")
 @Getter
 @Setter
 @Builder
@@ -23,7 +24,7 @@ public class Node {
     private int y;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "terrain_type")
     private TerrainType terrainType;
 
     @ManyToOne(fetch = FetchType.LAZY)
