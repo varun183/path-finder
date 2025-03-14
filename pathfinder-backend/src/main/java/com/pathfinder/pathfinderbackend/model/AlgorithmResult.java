@@ -52,5 +52,6 @@ public class AlgorithmResult {
     )
     @Column(name = "node_id")
     @OrderColumn(name = "position")
+    @Builder.Default
     private List<Long> pathNodeIds = new ArrayList<>();
 }

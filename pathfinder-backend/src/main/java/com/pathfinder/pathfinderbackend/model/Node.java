@@ -32,20 +32,25 @@ public class Node {
     private Map map;
 
     @OneToMany(mappedBy = "source")
+    @Builder.Default
     private Set<Edge> outgoingEdges = new HashSet<>();
 
     @OneToMany(mappedBy = "target")
+    @Builder.Default
     private Set<Edge> incomingEdges = new HashSet<>();
 
     // Transient properties for pathfinding algorithms
     @Transient
+    @Builder.Default
     private double distanceFromStart = Double.POSITIVE_INFINITY;
 
     @Transient
+    @Builder.Default
     private double estimatedDistanceToGoal = Double.POSITIVE_INFINITY;
 
     @Transient
-    private Node parent;
+    @Builder.Default
+    private Node parent=null;
 
     @Transient
     private boolean visited;
