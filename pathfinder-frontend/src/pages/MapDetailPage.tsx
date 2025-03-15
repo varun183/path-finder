@@ -23,6 +23,8 @@ import algorithmService from "../services/algorithmService";
 import MapGrid from "../components/MapGrid";
 import AlgorithmSelector from "../components/AlgorithmSelector";
 import AlgorithmResults from "../components/AlgorithmResults";
+import { Tabs } from "@mantine/core";
+import ResultsHistory from "../components/ResultsHistory";
 
 const MapDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -257,15 +259,43 @@ const MapDetailPage: React.FC = () => {
 
       {currentResult && <AlgorithmResults result={currentResult} />}
 
-      <Box mt="md">
-        <MapGrid
-          mapDetails={mapDetails}
-          startNodeId={startNode?.id || null}
-          endNodeId={endNode?.id || null}
-          pathNodeIds={currentResult?.pathNodeIds || []}
-          onNodeClick={handleNodeClick}
-        />
-      </Box>
+      <Tabs defaultValue="map" mt="md">
+        <Tabs.List>
+          <Tabs.Tab value="map">Map Visualization</Tabs.Tab>
+          <Tabs.Tab value="history">Execution History</Tabs.Tab>
+        </Tabs.List>
+
+        <Tabs.Panel value="map" pt="md">
+          <Box>
+            <MapGrid
+              mapDetails={mapDetails}
+              startNodeId={startNode?.id || null}
+              endNodeId={endNode?.id || null}
+              pathNodeIds={currentResult?.pathNodeIds || []}
+              onNodeClick={handleNodeClick}
+            />
+          </Box>
+        </Tabs.Panel>
+
+        <Tabs.Panel value="history" pt="md">
+          <ResultsHistory
+            mapId={mapDetails.map.id}
+            onResultSelect={(result) => {
+              // Find the corresponding nodes
+              const start =
+                mapDetails.nodes.find((n) => n.id === result.startNodeId) ||
+                null;
+              const end =
+                mapDetails.nodes.find((n) => n.id === result.endNodeId) || null;
+
+              setStartNode(start);
+              setEndNode(end);
+              setCurrentResult(result);
+              setSelectedAlgorithm(result.algorithmType);
+            }}
+          />
+        </Tabs.Panel>
+      </Tabs>
     </Container>
   );
 };
