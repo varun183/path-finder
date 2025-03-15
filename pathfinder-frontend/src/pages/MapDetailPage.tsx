@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-  Container,
   Title,
   Text,
   Button,
@@ -11,6 +10,7 @@ import {
   Alert,
   LoadingOverlay,
   Paper,
+  Tabs,
 } from "@mantine/core";
 import { IconAlertCircle, IconArrowLeft } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
@@ -23,7 +23,6 @@ import algorithmService from "../services/algorithmService";
 import MapGrid from "../components/MapGrid";
 import AlgorithmSelector from "../components/AlgorithmSelector";
 import AlgorithmResults from "../components/AlgorithmResults";
-import { Tabs } from "@mantine/core";
 import ResultsHistory from "../components/ResultsHistory";
 
 const MapDetailPage: React.FC = () => {
@@ -161,18 +160,18 @@ const MapDetailPage: React.FC = () => {
 
   if (loading) {
     return (
-      <Container size="xl" py="xl" pos="relative" h="80vh">
+      <Box pos="relative" h="80vh">
         <LoadingOverlay
           visible={true}
           overlayProps={{ radius: "sm", blur: 2 }}
         />
-      </Container>
+      </Box>
     );
   }
 
   if (error || !mapDetails) {
     return (
-      <Container size="md" py="xl">
+      <>
         <Alert
           icon={<IconAlertCircle size="1rem" />}
           title="Error Loading Map"
@@ -187,23 +186,14 @@ const MapDetailPage: React.FC = () => {
         >
           Back to Maps
         </Button>
-      </Container>
+      </>
     );
   }
 
   return (
-    <Container size="xl" py="xl">
+    <>
       <Group justify="space-between" mb="md">
-        <Group>
-          <Button
-            variant="subtle"
-            leftSection={<IconArrowLeft size="1rem" />}
-            onClick={() => navigate("/")}
-          >
-            Back
-          </Button>
-          <Title order={2}>{mapDetails.map.name}</Title>
-        </Group>
+        <Title order={2}>{mapDetails.map.name}</Title>
       </Group>
 
       <Text mb="md">
@@ -296,7 +286,7 @@ const MapDetailPage: React.FC = () => {
           />
         </Tabs.Panel>
       </Tabs>
-    </Container>
+    </>
   );
 };
 

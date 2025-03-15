@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Container,
   Title,
   Text,
   Button,
@@ -93,9 +92,9 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <Container size="lg" py="xl">
+    <>
       <Group justify="space-between" mb="xl">
-        <Title order={1}>PathFinder</Title>
+        <Title order={1}>Maps</Title>
         <Button leftSection={<IconPlus size={16} />} onClick={open}>
           Create New Map
         </Button>
@@ -170,7 +169,7 @@ const HomePage: React.FC = () => {
         onSubmit={handleCreateMap}
         isLoading={creating}
       />
-    </Container>
+    </>
   );
 };
 
