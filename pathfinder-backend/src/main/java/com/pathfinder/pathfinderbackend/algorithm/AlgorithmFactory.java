@@ -12,7 +12,9 @@ public class AlgorithmFactory {
     public PathfindingAlgorithm createAlgorithm(AlgorithmType type, Map map, Node startNode, Node endNode) {
         return switch (type) {
             case BFS -> new BreadthFirstSearch(map, startNode, endNode);
-            default -> throw new UnsupportedOperationException("Algorithm not implemented yet: " + type);
+            case DFS -> new DepthFirstSearch(map, startNode, endNode);
+            case DIJKSTRA -> new DijkstraAlgorithm(map, startNode, endNode);
+            case A_STAR -> new AStarAlgorithm(map, startNode, endNode);
         };
     }
 }
